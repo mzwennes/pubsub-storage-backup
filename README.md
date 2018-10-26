@@ -35,4 +35,6 @@ Apache Beam supports multiple parameters when running the application. The compl
 (https://cloud.google.com/dataflow/pipelines/specifying-exec-params).
 
 The image below shows the Dataflow job that will be created with the commands shown above.
-<img src="dataflow.png" width="100">
+
+
+<img src="dataflow.png" width="300">
