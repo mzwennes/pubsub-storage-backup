@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group 'nl.debijenkorf'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'org.slf4j:slf4j-log4j12:1.7.25'
+    compile 'org.apache.beam:beam-runners-direct-java:2.7.0'
+    compile 'org.apache.beam:beam-runners-google-cloud-dataflow-java:2.7.0'
+    compile 'com.google.cloud.dataflow:google-cloud-dataflow-java-sdk-all:2.5.0'
+    testImplementation 'junit:junit:4.12'
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes(
+                'Main-Class': 'nl.debijenkorf.snowplow.BeamApplication'
+        )
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
