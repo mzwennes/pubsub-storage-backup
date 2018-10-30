@@ -29,7 +29,7 @@ Run the application
         --runner=DataflowRunner
         --tempLocation=gs://BUCKET_NAME/tmp \
         --stagingLocation=gs://BUCKET_NAME/stg \
-        --subnetwork=regions/REGION/subnetworks/SUBNETWORK \
+        --subnetwork=regions/REGION/subnetworks/SUBNETWORK 
 ```
 Apache Beam supports multiple parameters when running the application. The complete list [can be found here]
 (https://cloud.google.com/dataflow/pipelines/specifying-exec-params).
