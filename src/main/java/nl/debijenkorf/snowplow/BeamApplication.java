@@ -4,7 +4,6 @@ import nl.debijenkorf.snowplow.coders.FailsafeElementCoder;
 import nl.debijenkorf.snowplow.flows.BigQuery;
 import nl.debijenkorf.snowplow.flows.Pubsub;
 import nl.debijenkorf.snowplow.flows.Storage;
-import nl.debijenkorf.snowplow.parsers.RowParser;
 import nl.debijenkorf.snowplow.parsers.SchemeParser;
 import nl.debijenkorf.snowplow.utils.WindowedFilenamePolicy;
 import org.apache.beam.sdk.Pipeline;
@@ -44,7 +43,6 @@ public class BeamApplication {
         } else if (options.getSink().equals("bigquery")) {
             BigQuery.builder()
                     .source(source.read())
-                    .parser(new RowParser())
                     .separator(options.getSeparator())
                     .fields(SchemeParser.parse(options.getSourceScheme()))
                     .table(generateTableName(options))

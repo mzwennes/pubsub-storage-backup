@@ -18,7 +18,7 @@ public class BigQuery {
     private String table;
     private List<Field> fields;
     private String separator;
-    private RowParser parser;
+    @Builder.Default private RowParser parser = new RowParser();
 
     public void write() {
         source.apply("Convert msg to Table row",

@@ -19,8 +19,8 @@ public interface Options extends PipelineOptions, StreamingOptions {
     void setOutputDirectory(ValueProvider<String> value);
 
     @Description("The filename prefix of the files to write to.")
-    @Default.String("backup-")
     @Validation.Required
+    @Default.String("backup-")
     ValueProvider<String> getOutputFilenamePrefix();
     void setOutputFilenamePrefix(ValueProvider<String> value);
 
@@ -47,6 +47,7 @@ public interface Options extends PipelineOptions, StreamingOptions {
     void setWindowDuration(Integer value);
 
     @Description("The Google Project ID")
+    @Validation.Required
     ValueProvider<String> getProjectId();
     void setProjectId(ValueProvider<String> value);
 

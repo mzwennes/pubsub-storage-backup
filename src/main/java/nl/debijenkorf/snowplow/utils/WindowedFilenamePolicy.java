@@ -96,4 +96,8 @@ public class WindowedFilenamePolicy extends FilenamePolicy {
         }
         return outputDirectory;
     }
+
+    public ValueProvider<String> getOutputDirectory() {
+        return outputDirectory;
+    }
 }
