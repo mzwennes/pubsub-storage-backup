@@ -1,13 +1,17 @@
 package nl.debijenkorf.snowplow;
 
+import nl.debijenkorf.snowplow.coders.FailsafeElementCoder;
+import nl.debijenkorf.snowplow.flows.BigQuery;
+import nl.debijenkorf.snowplow.flows.Pubsub;
+import nl.debijenkorf.snowplow.flows.Storage;
+import nl.debijenkorf.snowplow.parsers.SchemeParser;
+import nl.debijenkorf.snowplow.utils.WindowedFilenamePolicy;
 import org.apache.beam.sdk.Pipeline;
-import org.apache.beam.sdk.PipelineResult;
-import org.apache.beam.sdk.io.TextIO;
-import org.apache.beam.sdk.io.gcp.pubsub.PubsubIO;
+import org.apache.beam.sdk.coders.CoderRegistry;
+import org.apache.beam.sdk.coders.StringUtf8Coder;
+import org.apache.beam.sdk.io.gcp.pubsub.PubsubMessage;
+import org.apache.beam.sdk.io.gcp.pubsub.PubsubMessageWithAttributesCoder;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.windowing.FixedWindows;
-import org.apache.beam.sdk.transforms.windowing.Window;
-import org.joda.time.Duration;
 
 public class BeamApplication {
 
@@ -17,24 +21,50 @@ public class BeamApplication {
                 .withValidation()
                 .as(Options.class);
 
-        PipelineResult result = run(options);
-        result.waitUntilFinish();
-    }
-
-    private static PipelineResult run(Options options) {
         Pipeline pipeline = Pipeline.create(options);
-
-        pipeline.apply(PubsubIO.readStrings()
-                .fromSubscription(options.getInputTopic()))
-                .apply(Window.into(FixedWindows.of(Duration.standardSeconds(options.getWindowDuration()))))
-                .apply(TextIO.write()
-                        .to(generateFilePattern(options))
-                        .withWindowedWrites()
-                        .withNumShards(options.getNumShards()));
-        return pipeline.run();
+        registerCoder(pipeline);
+        setup(pipeline, options);
+        pipeline.run().waitUntilFinish();
     }
 
-    private static WindowedFilenamePolicy generateFilePattern(Options options) {
+    private static void setup(Pipeline pipeline, Options options) {
+        Pubsub source = Pubsub.builder()
+                .subscription(options.getSubscription())
+                .window(options.getWindowDuration())
+                .pipeline(pipeline)
+                .build();
+
+        if (options.getSink().equals("storage")) {
+            Storage.builder()
+                    .source(source.read())
+                    .filePattern(filePattern(options))
+                    .shards(options.getNumShards())
+                    .build().write();
+        } else if (options.getSink().equals("bigquery")) {
+            BigQuery.builder()
+                    .source(source.read())
+                    .separator(options.getSeparator())
+                    .fields(SchemeParser.parse(options.getSourceScheme()))
+                    .table(generateTableName(options))
+                    .build().write();
+        }
+    }
+
+    private static void registerCoder(Pipeline pipeline) {
+        FailsafeElementCoder<PubsubMessage, String> coder =
+                FailsafeElementCoder.of(PubsubMessageWithAttributesCoder.of(), StringUtf8Coder.of());
+
+        CoderRegistry coderRegistry = pipeline.getCoderRegistry();
+        coderRegistry.registerCoderForType(coder.getEncodedTypeDescriptor(), coder);
+    }
+
+    private static String generateTableName(Options options) {
+        return String.format("%s:%s.%s",
+                options.getProjectId(), options.getDatasetId(), options.getTableName()
+        );
+    }
+
+    private static WindowedFilenamePolicy filePattern(Options options) {
         return new WindowedFilenamePolicy(
                 options.getOutputDirectory(),
                 options.getOutputFilenamePrefix(),

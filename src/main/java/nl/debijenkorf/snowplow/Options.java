@@ -3,10 +3,15 @@ package nl.debijenkorf.snowplow;
 import org.apache.beam.sdk.options.*;
 
 public interface Options extends PipelineOptions, StreamingOptions {
-    @Description("The Cloud Pub/Sub topic to read from.")
+    @Description("The Cloud Pub/Sub subscription to read from.")
     @Validation.Required
-    ValueProvider<String> getInputTopic();
-    void setInputTopic(ValueProvider<String> value);
+    String getSubscription();
+    void setSubscription(String value);
+
+    @Description("Pick the sink to write to. supported values: bigquery, storage")
+    @Validation.Required
+    String getSink();
+    void setSink(String value);
 
     @Description("The directory to output files to. Must end with a slash.")
     @Validation.Required
@@ -14,8 +19,8 @@ public interface Options extends PipelineOptions, StreamingOptions {
     void setOutputDirectory(ValueProvider<String> value);
 
     @Description("The filename prefix of the files to write to.")
-    @Default.String("backup-")
     @Validation.Required
+    @Default.String("backup-")
     ValueProvider<String> getOutputFilenamePrefix();
     void setOutputFilenamePrefix(ValueProvider<String> value);
 
@@ -40,4 +45,26 @@ public interface Options extends PipelineOptions, StreamingOptions {
     @Default.Integer(120)
     Integer getWindowDuration();
     void setWindowDuration(Integer value);
+
+    @Description("The Google Project ID")
+    @Validation.Required
+    ValueProvider<String> getProjectId();
+    void setProjectId(ValueProvider<String> value);
+
+    @Description("The BigQuery dataset name")
+    ValueProvider<String> getDatasetId();
+    void setDatasetId(ValueProvider<String> value);
+
+    @Description("The BigQuery table name")
+    ValueProvider<String> getTableName();
+    void setTableName(ValueProvider<String> value);
+
+    @Description("Definition of the source data in Pubsub. (example: name:string,age:integer,price:float) "
+    + "Allowed types: string, integer, float, long")
+    String getSourceScheme();
+    void setSourceScheme(String value);
+
+    @Description("Separator of the incoming Pubsub data (examples: ,:;\t)")
+    String getSeparator();
+    void setSeparator(String value);
 }

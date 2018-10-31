@@ -1,4 +1,4 @@
-package nl.debijenkorf.snowplow;
+package nl.debijenkorf.snowplow.utils;
 
 import org.apache.beam.sdk.io.DefaultFilenamePolicy;
 import org.apache.beam.sdk.io.FileBasedSink.FilenamePolicy;
@@ -32,7 +32,7 @@ public class WindowedFilenamePolicy extends FilenamePolicy {
     private final ValueProvider<String> suffix;
     private final ValueProvider<String> shardTemplate;
 
-    WindowedFilenamePolicy(
+    public WindowedFilenamePolicy(
             ValueProvider<String> outputDirectory,
             ValueProvider<String> outputFilenamePrefix,
             ValueProvider<String> shardTemplate,
@@ -94,6 +94,10 @@ public class WindowedFilenamePolicy extends FilenamePolicy {
             outputPath = outputPath.replace("HH", HOUR.print(time));
             outputDirectory = FileSystems.matchNewResource(outputPath, true);
         }
+        return outputDirectory;
+    }
+
+    public ValueProvider<String> getOutputDirectory() {
         return outputDirectory;
     }
 }
