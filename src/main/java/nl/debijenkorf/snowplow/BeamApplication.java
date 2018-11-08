@@ -67,7 +67,6 @@ public class BeamApplication {
     private static WindowedFilenamePolicy filePattern(Options options) {
         return new WindowedFilenamePolicy(
                 options.getOutputDirectory(),
-                options.getOutputFilenamePrefix(),
                 options.getOutputShardTemplate(),
                 options.getOutputFilenameSuffix());
     }

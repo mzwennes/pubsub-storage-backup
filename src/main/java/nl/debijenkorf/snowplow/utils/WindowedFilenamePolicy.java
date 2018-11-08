@@ -28,17 +28,14 @@ public class WindowedFilenamePolicy extends FilenamePolicy {
     private static final DateTimeFormatter HOUR = DateTimeFormat.forPattern("HH");
 
     private final ValueProvider<String> outputDirectory;
-    private final ValueProvider<String> outputFilenamePrefix;
     private final ValueProvider<String> suffix;
     private final ValueProvider<String> shardTemplate;
 
     public WindowedFilenamePolicy(
             ValueProvider<String> outputDirectory,
-            ValueProvider<String> outputFilenamePrefix,
             ValueProvider<String> shardTemplate,
             ValueProvider<String> suffix) {
         this.outputDirectory = outputDirectory;
-        this.outputFilenamePrefix = outputFilenamePrefix;
         this.shardTemplate = shardTemplate;
         this.suffix = suffix;
     }
@@ -57,8 +54,7 @@ public class WindowedFilenamePolicy extends FilenamePolicy {
             PaneInfo paneInfo,
             OutputFileHints outputFileHints) {
 
-        ResourceId outputFile = resolveWithDateTemplates(outputDirectory, window)
-                        .resolve(outputFilenamePrefix.get(), StandardResolveOptions.RESOLVE_FILE);
+        ResourceId outputFile = resolveWithDateTemplates(outputDirectory, window);
 
         DefaultFilenamePolicy policy = DefaultFilenamePolicy.fromStandardParameters(
                         StaticValueProvider.of(outputFile), shardTemplate.get(), suffix.get(), true);
