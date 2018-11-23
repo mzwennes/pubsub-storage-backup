@@ -3,16 +3,39 @@ package nl.debijenkorf.snowplow;
 import org.apache.beam.sdk.options.*;
 
 public interface Options extends PipelineOptions, StreamingOptions {
+
+    /**
+     * Required values for each application
+     */
+    @Description("The Google Project ID")
+    @Validation.Required
+    ValueProvider<String> getProjectId();
+    void setProjectId(ValueProvider<String> value);
+
     @Description("The Cloud Pub/Sub subscription to read from.")
     @Validation.Required
     String getSubscription();
     void setSubscription(String value);
+
+    @Description("Pick the source to read from. supported values: pubsub")
+    @Validation.Required
+    String getSource();
+    void setSource(String value);
 
     @Description("Pick the sink to write to. supported values: bigquery, storage")
     @Validation.Required
     String getSink();
     void setSink(String value);
 
+    @Description("The window duration in seconds for aggregation of PubSub data.")
+    @Default.Integer(120)
+    Integer getWindowDuration();
+    void setWindowDuration(Integer value);
+
+
+    /**
+     * Required values when writing to Google Storage
+     */
     @Description("The directory to output files to. Must end with a slash.")
     @Validation.Required
     ValueProvider<String> getOutputDirectory();
@@ -35,16 +58,10 @@ public interface Options extends PipelineOptions, StreamingOptions {
     Integer getNumShards();
     void setNumShards(Integer value);
 
-    @Description("The window duration in seconds for aggregation of PubSub data.")
-    @Default.Integer(120)
-    Integer getWindowDuration();
-    void setWindowDuration(Integer value);
 
-    @Description("The Google Project ID")
-    @Validation.Required
-    ValueProvider<String> getProjectId();
-    void setProjectId(ValueProvider<String> value);
-
+    /**
+     * Required values when writing to Google BigQuery
+     */
     @Description("The BigQuery dataset name")
     ValueProvider<String> getDatasetId();
     void setDatasetId(ValueProvider<String> value);
