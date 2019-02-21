@@ -53,7 +53,7 @@ Or run the application with a bigquery sink (be sure to create the dataset first
         --sourceScheme=name:string,age:integer:price:float64
 ```
 
-###Supported options:
+### Supported options:
 
 Option | Description | Required | Default
 --- | --- | --- | ---
