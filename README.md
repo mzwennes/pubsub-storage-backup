@@ -1,4 +1,7 @@
 # Google Storage Sink
+
+[![Build Status](https://travis-ci.org/zwennesm/pubsub-storage-backup.svg?branch=master)](https://travis-ci.org/zwennesm/pubsub-storage-backup)
+
 A small backup tool which collects data from a given PubSub topic and writes it to the designated Google storage
 bucket. The application is built upon `Apache Beam` which is a stream/batch data processing tool. [click here]
 (https://beam.apache.org/get-started/beam-overview/) to learn more about the Apache Beam model. Due to the source
