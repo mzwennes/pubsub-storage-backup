@@ -10,15 +10,21 @@ of the application (PubSub), the Dataflow job that will be created is a `streami
 ## Requirements
 
 * Java 1.8 SDK
-* Google Service account with the following access:
-    * Compute Viewer
-    * Dataflow Developer
-    * Storage Admin to the bucket where it will write to
-    * PubSub Admin from the PubSub topic where it will read from
+* A good humour
 
 ## Deployment
 
-Since the application is a streaming application, it's as simple as running the following commands:
+1. Enable the [Dataflow API](https://cloud.google.com/apis/docs/enable-disable-apis)
+
+2. Create a service account
+In order to a create a job, `roles/dataflow.admin` includes the minimal set of permissions required to run and examine jobs.
+
+Alternatively, the following permissions are required:
+
+* The `roles/dataflow.developer` role, to instantiate the job itself.
+* The `roles/compute.viewer` role, to access machine type information and view other settings.
+* The `roles/storage.objectAdmin` role, to provide permission to stage files on Cloud Storage.
+* The `roles/pubsub.subscriber` role, to provide subscription access to the PubSub topic which we will use
 
 Build the application with all the added dependencies
 

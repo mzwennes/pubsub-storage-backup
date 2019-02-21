@@ -18,6 +18,11 @@ public interface Options extends PipelineOptions, StreamingOptions {
     ValueProvider<String> getOutputDirectory();
     void setOutputDirectory(ValueProvider<String> value);
 
+    @Description("The prefix of the files to write")
+    @Default.String("")
+    ValueProvider<String> getOutputFilenamePrefix();
+    void setOutputFilenamePrefix(ValueProvider<String> value);
+
     @Description("The suffix of the files to write.")
     @Default.String("")
     ValueProvider<String> getOutputFilenameSuffix();
