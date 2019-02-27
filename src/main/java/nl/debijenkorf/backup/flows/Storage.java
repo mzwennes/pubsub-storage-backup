@@ -1,7 +1,7 @@
-package nl.debijenkorf.snowplow.flows;
+package nl.debijenkorf.backup.flows;
 
 import lombok.Builder;
-import nl.debijenkorf.snowplow.utils.WindowedFilenamePolicy;
+import nl.debijenkorf.backup.utils.WindowedFilenamePolicy;
 import org.apache.beam.sdk.io.Compression;
 import org.apache.beam.sdk.io.FileBasedSink;
 import org.apache.beam.sdk.io.TextIO;

@@ -1,7 +1,7 @@
-package nl.debijenkorf.snowplow.parsers;
+package nl.debijenkorf.backup.parsers;
 
-import nl.debijenkorf.snowplow.values.DataType;
-import nl.debijenkorf.snowplow.values.Field;
+import nl.debijenkorf.backup.values.DataType;
+import nl.debijenkorf.backup.values.Field;
 import org.junit.Test;
 
 import java.util.List;

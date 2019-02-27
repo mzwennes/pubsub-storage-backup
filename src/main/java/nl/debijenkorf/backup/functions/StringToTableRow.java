@@ -1,8 +1,8 @@
-package nl.debijenkorf.snowplow.functions;
+package nl.debijenkorf.backup.functions;
 
 import com.google.api.services.bigquery.model.TableRow;
-import nl.debijenkorf.snowplow.parsers.RowParser;
-import nl.debijenkorf.snowplow.values.Field;
+import nl.debijenkorf.backup.parsers.RowParser;
+import nl.debijenkorf.backup.values.Field;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class StringToTableRow extends DoFn<String, TableRow> {
     @ProcessElement
     public void processElement(ProcessContext context) {
         String input = context.element();
-        String[] separated = input.split(this.separator);
+        String[] separated = input.split(this.separator, -1);
 
         // return failsafe object if headers do not match
         if (separated.length != fields.size()) {

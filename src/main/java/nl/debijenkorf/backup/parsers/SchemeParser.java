@@ -1,9 +1,9 @@
-package nl.debijenkorf.snowplow.parsers;
+package nl.debijenkorf.backup.parsers;
 
 import com.google.api.services.bigquery.model.TableFieldSchema;
 import com.google.api.services.bigquery.model.TableSchema;
-import nl.debijenkorf.snowplow.values.DataType;
-import nl.debijenkorf.snowplow.values.Field;
+import nl.debijenkorf.backup.values.DataType;
+import nl.debijenkorf.backup.values.Field;
 
 import java.util.Arrays;
 import java.util.List;

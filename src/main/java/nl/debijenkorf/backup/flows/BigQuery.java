@@ -1,10 +1,10 @@
-package nl.debijenkorf.snowplow.flows;
+package nl.debijenkorf.backup.flows;
 
 import lombok.Builder;
-import nl.debijenkorf.snowplow.functions.StringToTableRow;
-import nl.debijenkorf.snowplow.parsers.RowParser;
-import nl.debijenkorf.snowplow.parsers.SchemeParser;
-import nl.debijenkorf.snowplow.values.Field;
+import nl.debijenkorf.backup.functions.StringToTableRow;
+import nl.debijenkorf.backup.parsers.RowParser;
+import nl.debijenkorf.backup.parsers.SchemeParser;
+import nl.debijenkorf.backup.values.Field;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO;
 import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;

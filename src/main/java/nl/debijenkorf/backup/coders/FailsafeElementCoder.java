@@ -1,4 +1,4 @@
-package nl.debijenkorf.snowplow.coders;
+package nl.debijenkorf.backup.coders;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 
-import nl.debijenkorf.snowplow.values.FailsafeElement;
+import nl.debijenkorf.backup.values.FailsafeElement;
 import org.apache.beam.sdk.coders.Coder;
 import org.apache.beam.sdk.coders.CoderException;
 import org.apache.beam.sdk.coders.CustomCoder;

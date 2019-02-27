@@ -1,4 +1,4 @@
-package nl.debijenkorf.snowplow;
+package nl.debijenkorf.backup;
 
 import org.apache.beam.sdk.options.*;
 

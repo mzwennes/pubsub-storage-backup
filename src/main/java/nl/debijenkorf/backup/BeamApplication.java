@@ -1,11 +1,11 @@
-package nl.debijenkorf.snowplow;
+package nl.debijenkorf.backup;
 
-import nl.debijenkorf.snowplow.coders.FailsafeElementCoder;
-import nl.debijenkorf.snowplow.flows.BigQuery;
-import nl.debijenkorf.snowplow.flows.Pubsub;
-import nl.debijenkorf.snowplow.flows.Storage;
-import nl.debijenkorf.snowplow.parsers.SchemeParser;
-import nl.debijenkorf.snowplow.utils.WindowedFilenamePolicy;
+import nl.debijenkorf.backup.coders.FailsafeElementCoder;
+import nl.debijenkorf.backup.flows.BigQuery;
+import nl.debijenkorf.backup.flows.Pubsub;
+import nl.debijenkorf.backup.flows.Storage;
+import nl.debijenkorf.backup.parsers.SchemeParser;
+import nl.debijenkorf.backup.utils.WindowedFilenamePolicy;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.coders.CoderRegistry;
 import org.apache.beam.sdk.coders.StringUtf8Coder;

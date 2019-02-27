@@ -1,4 +1,4 @@
-package nl.debijenkorf.snowplow.values;
+package nl.debijenkorf.backup.values;
 
 import org.apache.avro.reflect.Nullable;
 

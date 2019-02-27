@@ -1,6 +1,6 @@
-package nl.debijenkorf.snowplow.parsers;
+package nl.debijenkorf.backup.parsers;
 
-import nl.debijenkorf.snowplow.values.DataType;
+import nl.debijenkorf.backup.values.DataType;
 
 import java.io.Serializable;
 

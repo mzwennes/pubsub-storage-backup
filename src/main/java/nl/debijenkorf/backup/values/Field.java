@@ -1,4 +1,4 @@
-package nl.debijenkorf.snowplow.values;
+package nl.debijenkorf.backup.values;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
